@@ -8,7 +8,8 @@
 
 # 데이터베이스 테이블 구조
 
-<img width="801" alt="스크린샷 2023-08-08 오후 6 38 10" src="https://github.com/taehyunkim44/wanted-pre-onboarding-backend/assets/101853993/7f8cd6e0-38d2-4303-a0ed-c57955007706">
+<img width="795" alt="스크린샷 2023-08-08 오후 7 18 35" src="https://github.com/taehyunkim44/wanted-pre-onboarding-backend/assets/101853993/2bf94b6e-e78f-4c43-8ff3-4846f0b425ae">
+
 
 
 # 구현한 API의 동작을 촬영한 데모 영상 링크
