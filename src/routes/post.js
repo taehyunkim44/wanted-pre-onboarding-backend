@@ -7,10 +7,10 @@ import {
   updatePost,
   deletePost,
 } from "../controllers/post";
-import auth from "../middlewares/auth";
+import authMiddleware from "../middlewares/auth";
 
 // POST /posts - 새로운 게시글 생성
-router.post("/", auth, createPost);
+router.post("/", authMiddleware, createPost);
 
 // GET /posts - 모든 게시글 조회
 router.get("/", getPosts);
@@ -19,9 +19,9 @@ router.get("/", getPosts);
 router.get("/:id", getPost);
 
 // PUT /posts/:id - 특정 게시글 수정
-router.put("/:id", auth, updatePost);
+router.put("/:id", authMiddleware, updatePost);
 
 // DELETE /posts/:id - 특정 게시글 삭제
-router.delete("/:id", auth, deletePost);
+router.delete("/:id", authMiddleware, deletePost);
 
 module.exports = router;

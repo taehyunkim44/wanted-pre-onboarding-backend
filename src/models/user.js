@@ -10,16 +10,22 @@ export const User = sequelize.define(
       autoIncrement: true,
     },
     email: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       allowNull: false,
       unique: true,
     },
     password: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(100),
       allowNull: false,
     },
   },
   {
+    timestamps: true,
+    paranoid: true,
+    modelName: "User",
+    tableName: "user",
+    charset: "utf8mb4",
+    collate: "utf8mb4_general_ci",
     hooks: {
       beforeCreate: async (user) => {
         const hashedPassword = await bcrypt.hash(user.password, 10);
