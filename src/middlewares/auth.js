@@ -1,4 +1,4 @@
-import { verifyToken } from "../utils/auth";
+import { verifyToken } from "../utils/auth.js";
 
 export const authMiddleware = async (req, res, next) => {
   try {

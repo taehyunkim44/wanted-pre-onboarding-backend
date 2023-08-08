@@ -1,13 +1,14 @@
 import express from "express";
-const router = express.Router();
 import {
   createPost,
   getPosts,
   getPost,
   updatePost,
   deletePost,
-} from "../controllers/post";
-import authMiddleware from "../middlewares/auth";
+} from "../controllers/post.js";
+import { authMiddleware } from "../middlewares/auth.js";
+
+const router = express.Router();
 
 // POST /posts - 새로운 게시글 생성
 router.post("/", authMiddleware, createPost);
@@ -24,4 +25,4 @@ router.put("/:id", authMiddleware, updatePost);
 // DELETE /posts/:id - 특정 게시글 삭제
 router.delete("/:id", authMiddleware, deletePost);
 
-module.exports = router;
+export default router;

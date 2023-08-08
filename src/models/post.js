@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../config/config";
+import sequelize from "../config/config.js";
 
 export const Post = sequelize.define(
   "Post",
@@ -27,3 +27,10 @@ export const Post = sequelize.define(
     collate: "utf8mb4_general_ci",
   }
 );
+
+Post.associate = (models) => {
+  Post.belongsTo(models.User, {
+    foreignKey: "userId",
+    onDelete: "CASCADE",
+  });
+};

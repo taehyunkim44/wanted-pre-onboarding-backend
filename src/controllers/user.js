@@ -1,5 +1,5 @@
-import User from "../models/user";
-import { generateToken } from "../utils/auth";
+import { User } from "../models/user.js";
+import { generateToken } from "../utils/auth.js";
 
 // 사용자 회원가입
 export const registerUser = async (req, res) => {

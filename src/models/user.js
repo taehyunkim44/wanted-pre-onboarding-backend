@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../config/config";
+import sequelize from "../config/config.js";
 
 export const User = sequelize.define(
   "User",
@@ -34,3 +34,10 @@ export const User = sequelize.define(
     },
   }
 );
+
+User.associate = (models) => {
+  User.hasMany(models.Post, {
+    foreignKey: "userId",
+    onDelete: "CASCADE",
+  });
+};

@@ -1,4 +1,4 @@
-import Post from "../models/post";
+import { Post } from "../models/post.js";
 
 // 새로운 게시글 생성
 export const createPost = async (req, res) => {
