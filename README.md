@@ -7,9 +7,11 @@
 # 애플리케이션의 실행 방법 (엔드포인트 호출 방법 포함)
 
 1. 의존성 설치
+
    npm install
 
 2. root 경로에서 어플리케이션 실행
+
    npm start
 
 # 데이터베이스 테이블 구조
@@ -43,3 +45,127 @@ a
    - soft delete는 실제 데이터를 완전히 삭제 하는 방식이 아닌 API 실행 시 DB에서 데이터를 인식하지 못하게 하는 방식으로 paranoid:true 로 설정한 후 delete 요청으로 호출하여 데이터를 삭제하였다고 해도 데이터가 삭제되지 않고 deletedAt에 삭제된 시간만 찍히는 방식입니다. 이 방법으로 삭제된 데이터를 불러와야 할 경우 다시 데이터를 복구할 수 있습니다.
 
 # API 명세(request/response 포함)
+
+1. 사용자 회원가입
+
+- HTTP method: POST
+- Endpoint: /api/users/register
+- Request: {"email":"test@naver.com","passowrd":"test1234"}
+- Response: {
+  "message": "회원가입이 성공적으로 완료되었습니다.",
+  "user": {
+  "id": 7,
+  "email": "test1@naver.com",
+  "password": "$2b$10$wI2GXT5kOExTBHQsrO/KeO9DjZBZg1255fC2n1gnxry4AM1eeURYu",
+  "updatedAt": "2023-08-15T10:20:56.152Z",
+  "createdAt": "2023-08-15T10:20:56.152Z"
+  }
+  }
+
+2. 사용자 로그인
+
+- HTTP method: POST
+- Endpoint: /api/users/login
+- Request: {"email":"test1@naver.com","passowrd":"test1234"}
+- Response: {
+  "message": "로그인에 성공했습니다.",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiZW1haWwiOiJ0ZXN0MUBuYXZlci5jb20iLCJpYXQiOjE2OTIwOTUwMjgsImV4cCI6MTY5MjA5ODYyOH0.bpYiG2yYevq68lX0tt7Vsa2IN5l6acfuQd34yBHPRJg"
+  }
+
+3. 새로운 게시글 생성
+
+- HTTP method: POST
+- Endpoint: /api/posts
+- Request: {"title":"제목1","content":"내용1"}
+- Response: {
+  "message": "게시글이 성공적으로 작성되었습니다.",
+  "post": {
+  "id": 6,
+  "title": "제목1",
+  "content": "내용1",
+  "updatedAt": "2023-08-15T10:26:24.113Z",
+  "createdAt": "2023-08-15T10:26:24.113Z"
+  }
+  }
+
+4. 모든 게시글 조회
+
+- HTTP method: GET
+- Endpoint: /api/posts?page=1
+- Request: 페이지네이션으로 page 당 10개의 게시물 조회 query 방식으로 page 요청
+- Response: {
+  "posts": {
+  "count": 3,
+  "rows": [
+  {
+  "id": 4,
+  "title": "제목2",
+  "content": "내용2",
+  "createdAt": "2023-08-15T06:38:28.000Z",
+  "updatedAt": "2023-08-15T06:38:28.000Z",
+  "deletedAt": null
+  },
+  {
+  "id": 5,
+  "title": "제목3",
+  "content": "내용3",
+  "createdAt": "2023-08-15T06:38:36.000Z",
+  "updatedAt": "2023-08-15T06:38:36.000Z",
+  "deletedAt": null
+  },
+  {
+  "id": 6,
+  "title": "제목1",
+  "content": "내용1",
+  "createdAt": "2023-08-15T10:26:24.000Z",
+  "updatedAt": "2023-08-15T10:26:24.000Z",
+  "deletedAt": null
+  }
+  ]
+  }
+  }
+
+5. 특정 게시글 조회
+
+- HTTP method: GET
+- Endpoint: /api/posts/:id
+- Request: param 방식으로 id로 요청
+- Response: {
+  "post": {
+  "id": 5,
+  "title": "제목3",
+  "content": "내용3",
+  "createdAt": "2023-08-15T06:38:36.000Z",
+  "updatedAt": "2023-08-15T06:38:36.000Z",
+  "deletedAt": null
+  }
+  }
+
+6. 특정 게시글 수정
+
+- HTTP method: PUT
+- Endpoint: /api/posts/:id
+- Request: {
+  "title":"바꿀 제목",
+  "content":"바꿀 내용"
+  }
+- Response: {
+  "message": "게시글이 성공적으로 수정되었습니다.",
+  "post": {
+  "id": 5,
+  "title": "바꿀 제목",
+  "content": "바꿀 내용",
+  "createdAt": "2023-08-15T06:38:36.000Z",
+  "updatedAt": "2023-08-15T10:33:42.113Z",
+  "deletedAt": null
+  }
+  }
+
+7. 특정 게시글 삭제
+
+- HTTP method: DELETE
+- Endpoint: /api/posts/:id
+- Request: param 방식으로 id로 요청
+- Response: {
+  "message": "게시글이 성공적으로 삭제되었습니다."
+  }
