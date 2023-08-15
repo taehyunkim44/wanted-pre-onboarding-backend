@@ -1,7 +1,8 @@
 import { DataTypes } from "sequelize";
 import sequelize from "../config/config.js";
+import bcrypt from "bcrypt";
 
-export const User = sequelize.define(
+const User = sequelize.define(
   "User",
   {
     id: {
@@ -35,9 +36,15 @@ export const User = sequelize.define(
   }
 );
 
+User.prototype.comparePassword = async function (inputPassword) {
+  return await bcrypt.compare(inputPassword, this.password);
+};
+
 User.associate = (models) => {
   User.hasMany(models.Post, {
     foreignKey: "userId",
     onDelete: "CASCADE",
   });
 };
+
+export default User;

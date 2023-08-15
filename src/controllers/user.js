@@ -1,4 +1,4 @@
-import { User } from "../models/user.js";
+import User from "../models/user.js";
 import { generateToken } from "../utils/auth.js";
 
 // 사용자 회원가입
@@ -20,10 +20,9 @@ export const registerUser = async (req, res) => {
     }
 
     const user = await User.create({ email, password });
-    const token = generateToken(user);
     res
       .status(201)
-      .json({ message: "회원가입이 성공적으로 완료되었습니다.", token });
+      .json({ message: "회원가입이 성공적으로 완료되었습니다.", user });
   } catch (error) {
     res
       .status(500)
@@ -35,19 +34,6 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-
-    // 이메일과 비밀번호 유효성 검사
-    if (!email.includes("@")) {
-      return res
-        .status(400)
-        .json({ message: "올바른 이메일 형식이 아닙니다." });
-    }
-
-    if (password.length < 8) {
-      return res
-        .status(400)
-        .json({ message: "비밀번호는 최소 8자 이상이어야 합니다." });
-    }
 
     const user = await User.findOne({ where: { email } });
     if (!user) {
