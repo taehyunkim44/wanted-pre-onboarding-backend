@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  my-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/myfolder/src
+    ports:
+      - 3000:3000
+    env_file:
+      - ./.env.docker
+    depends_on:
+      - my-database
+    networks:
+      - my-network
+
+  my-database:
+    image: mysql:latest
+    environment:
+      MYSQL_DATABASE: "wanted-pre-onboarding"
+      MYSQL_ROOT_PASSWORD: "qwer1234"
+    ports:
+      - 3306:3306
+    networks:
+      - my-network
+
+networks:
+  my-network:
+    driver: bridge
